@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>男2人旅 — 温泉プランガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho:wght@400;700&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5efe6;
+    --bg2: #ede4d8;
+    --ink: #1a1208;
+    --ink-light: #4a3f30;
+    --red: #c0392b;
+    --red-light: #e8c4be;
+    --gold: #b5860d;
+    --blue: #1e3a5f;
+    --steam: #d4cfc9;
+    --card-bg: #fdf9f4;
+    --border: #c9b99a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 20% 80%, rgba(176,136,92,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(192,57,43,0.05) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--border));
+  }
+  .header-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  h1 span {
+    color: var(--red);
+    display: inline-block;
+  }
+  .header-sub {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ink-light);
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── STEAM ANIMATION ── */
+  .steam-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0 10px;
+    height: 40px;
+    align-items: flex-end;
+  }
+  .steam {
+    width: 6px;
+    background: linear-gradient(to top, rgba(192,57,43,0.3), transparent);
+    border-radius: 4px;
+    animation: rise 2.5s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  .steam:nth-child(2) { animation-delay: 0.6s; height: 28px; }
+  .steam:nth-child(3) { animation-delay: 1.2s; height: 20px; }
+  @keyframes rise {
+    0%   { opacity: 0; transform: scaleY(0) translateY(0); }
+    30%  { opacity: 0.8; }
+    100% { opacity: 0; transform: scaleY(1) translateY(-30px); }
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+  .divider-icon {
+    color: var(--red);
+    font-size: 16px;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 12px 32px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--red);
+    transition: width 0.3s;
+  }
+  .tab-btn:hover { background: var(--bg2); }
+  .tab-btn.active {
+    background: var(--ink);
+    color: #f5efe6;
+    border-color: var(--ink);
+  }
+  .tab-btn.active::after { width: 100%; }
+  .tab-night {
+    font-size: 20px;
+    display: block;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .tab-day {
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+
+  /* ── TAB PANELS ── */
+  .panel { display: none; animation: fadeUp 0.5s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ── DESTINATION CARD ── */
+  .dest-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--red);
+    position: relative;
+    overflow: hidden;
+  }
+  .dest-header::before {
+    content: attr(data-kanji);
+    position: absolute;
+    right: -10px; top: -20px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 100px;
+    color: rgba(192,57,43,0.05);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .dest-num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 48px;
+    color: var(--red);
+    line-height: 1;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+  .dest-info h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  .dest-info .location {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+  .dest-info p {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--ink-light);
+  }
+  .badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 1px;
+    letter-spacing: 1px;
+  }
+  .badge-green  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .badge-blue   { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+  .badge-orange { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+
+  /* ── ACCESS INFO ── */
+  .access-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue);
+    color: #d4e4f7;
+    padding: 12px 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .access-bar strong { color: #fff; }
+  .access-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SCHEDULE ── */
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content: '';
+    width: 3px; height: 18px;
+    background: var(--red);
+    display: inline-block;
+  }
+
+  .day-block {
+    margin-bottom: 28px;
+  }
+  .day-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--card-bg);
+    background: var(--ink);
+    padding: 5px 14px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 4px, transparent 4px, transparent 8px);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -29px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+  .tl-item.highlight::before { background: var(--red); border-color: var(--red); }
+  .tl-time {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    min-width: 52px;
+    padding-top: 1px;
+  }
+  .tl-content { flex: 1; }
+  .tl-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .tl-desc {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  .tl-cost {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 700;
+    margin-top: 3px;
+  }
+
+  /* ── COST TABLE ── */
+  .cost-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-top: 32px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  th {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--bg2);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  .td-yen {
+    text-align: right;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .total-row td {
+    background: var(--ink);
+    color: var(--card-bg);
+    font-weight: 700;
+    font-family: 'Shippori Mincho', serif;
+  }
+  .total-row .td-yen {
+    color: #f5c842;
+    font-size: 16px;
+  }
+  .note-row td {
+    font-size: 11px;
+    color: var(--ink-light);
+    background: var(--bg2);
+    font-style: italic;
+  }
+
+  /* ── TIPS BOX ── */
+  .tips-box {
+    margin-top: 28px;
+    padding: 18px 22px;
+    background: linear-gradient(135deg, #f0e8d8 0%, #ede0cc 100%);
+    border: 1px dashed var(--border);
+    border-radius: 1px;
+  }
+  .tips-box h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .tips-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tips-box li {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+  .tips-box li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-size: 8px;
+    top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: 2px;
+    border-top: 1px solid var(--bg2);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .dest-header { flex-direction: column; gap: 12px; }
+    .dest-num { font-size: 36px; }
+    .tab-btn { padding: 10px 20px; }
+    .cost-section { padding: 16px; }
+    td, th { padding: 8px 8px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="header-label">♨ Onsen Journey Guide ♨</p>
+  <h1>男<span>２人</span>温泉旅<br>完全プラン</h1>
+  <div class="steam-row">
+    <div class="steam" style="height:36px;"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+  </div>
+  <div class="header-sub">
+    <span class="tag">👥 2人旅</span>
+    <span class="tag">🚃 車なしOK</span>
+    <span class="tag">🗺 関東・関西・沖縄 除く</span>
+    <span class="tag">💴 目安価格付き</span>
+  </div>
+</header>
+
+<div class="divider"><span class="divider-icon">♨</span></div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(0)">
+    <span class="tab-night">1泊</span>
+    <span class="tab-day">2日間</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab(1)">
+    <span class="tab-night">2泊</span>
+    <span class="tab-day">3日間</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab(2)">
+    <span class="tab-night">3泊</span>
+    <span class="tab-day">4日間</span>
+  </button>
+</div>
+
+<div class="container">
+
+<!-- ════════════════ 1泊2日 ════════════════ -->
+<div class="panel active" id="panel-0">
+
+  <div class="dest-header" data-kanji="道後">
+    <div class="dest-num">01</div>
+    <div class="dest-info">
+      <p class="location">📍 愛媛県 松山市</p>
+      <h2>道後温泉</h2>
+      <p>日本最古とも言われる名湯。「千と千尋の神隠し」のモデルとも噂される道後温泉本館が圧巻。松山城・坊っちゃん列車など観光も充実。新幹線＋特急で全国からアクセス可能。</p>
+      <div class="badges">
+        <span class="badge badge-green">♨ 日本三古湯</span>
+        <span class="badge badge-blue">🚃 電車でOK</span>
+        <span class="badge badge-orange">🏯 観光地多め</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="access-bar">
+    <strong>アクセス例</strong>
+    <span class="access-dot"></span>
+    東京発: 新幹線（岡山）→ 特急しおかぜ → 松山駅 → 市電3分 → 道後温泉
+    <span class="access-dot"></span>
+    大阪発: 新幹線（岡山）→ 特急しおかぜ 約2.5h
+    <span class="access-dot"></span>
+    <strong>節約: 夜行バス（大阪〜松山 約3,500円〜）</strong>
+  </div>
+
+  <p class="section-title">スケジュール</p>
+
+  <div class="day-block">
+    <div class="day-label">DAY 1 ／ 1日目</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">08:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 出発・移動</div>
+          <div class="tl-desc">新幹線・特急 or 高速バスで松山へ。移動中にコンビニ飯で節約。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🍜 松山でランチ</div>
+          <div class="tl-desc">鯛めし・じゃこ天うどんなど愛媛グルメを堪能。商店街も歩ける。</div>
+          <div class="tl-cost">目安: 900〜1,500円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🏯 松山城</div>
+          <div class="tl-desc">ロープウェイで山頂へ。天守閣から市街を一望。男旅映えスポット。</div>
+          <div class="tl-cost">入城料: 520円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🚃 坊っちゃん列車</div>
+          <div class="tl-desc">レトロな路面電車で道後温泉駅へ移動。写真映えポイント。</div>
+          <div class="tl-cost">300円/人（1日乗車券）</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🏨 チェックイン・休憩</div>
+          <div class="tl-desc">宿にチェックイン。荷物を置いて浴衣に着替えて街歩きへ。</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">18:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 道後温泉本館 入浴</div>
+          <div class="tl-desc">国の重要文化財に指定された歴史的建築で湯に浸かる。夜はライトアップが幻想的。</div>
+          <div class="tl-cost">700円〜（飛鳥の湯: 610円〜）</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🍻 温泉街で夕飯</div>
+          <div class="tl-desc">道後プリンや蛇口みかんジュース、海鮮居酒屋など温泉街グルメを満喫。</div>
+          <div class="tl-cost">目安: 2,000〜3,500円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">22:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 宿の大浴場（夜風呂）</div>
+          <div class="tl-desc">宿の貸切or大浴場でもう一度温泉。男旅の醍醐味。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 2 ／ 2日目</div>
+    <div class="timeline">
+      <div class="tl-item highlight">
+        <div class="tl-time">07:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 朝風呂</div>
+          <div class="tl-desc">朝イチの温泉で一日をスタート。朝風呂は格別。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">08:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🍚 朝食・チェックアウト</div>
+          <div class="tl-desc">朝食付きプランなら旅館の朝ごはん。素泊まりなら商店街の喫茶店でモーニング。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🛍 道後温泉街 散策</div>
+          <div class="tl-desc">お土産（タルト・じゃこ天）を購入。アーケード商店街も楽しい。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 帰路へ</div>
+          <div class="tl-desc">松山駅から新幹線・バスで帰宅。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cost-section">
+    <p class="section-title">費用概算（２人合計）</p>
+    <table>
+      <tr><th>項目</th><th>節約プラン</th><th class="td-yen">スタンダード</th></tr>
+      <tr>
+        <td>🚆 交通費（往復）<br><span style="font-size:11px;color:#888">※大阪発目安</span></td>
+        <td>高速バス 約14,000円</td>
+        <td class="td-yen">新幹線 約30,000円</td>
+      </tr>
+      <tr>
+        <td>🏨 宿泊（1泊・2人1室）<br><span style="font-size:11px;color:#888">朝食なし〜付き</span></td>
+        <td>6,000〜10,000円/人</td>
+        <td class="td-yen">12,000〜18,000円/人</td>
+      </tr>
+      <tr>
+        <td>♨ 入湯料（道後本館等）</td>
+        <td colspan="2" class="td-yen">約1,400〜2,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🍜 食費（2日分）</td>
+        <td>5,000〜7,000円（2人）</td>
+        <td class="td-yen">8,000〜12,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🎫 観光・移動（市電等）</td>
+        <td colspan="2" class="td-yen">約2,000〜3,000円（2人）</td>
+      </tr>
+      <tr class="total-row">
+        <td>💴 合計目安（2人）</td>
+        <td>節約: <strong>約30,000〜38,000円</strong></td>
+        <td class="td-yen">普通: 約55,000〜75,000円</td>
+      </tr>
+      <tr class="note-row">
+        <td colspan="3">※1人あたり目安：節約15,000〜19,000円 ／ スタンダード27,000〜37,000円　※出発地・季節・宿により変動あり</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tips-box">
+    <h4>💡 節約 &amp; 攻略 Tips</h4>
+    <ul>
+      <li>楽天トラベル・じゃらんで「素泊まり2人1室」検索が最安値になりやすい</li>
+      <li>JR四国の「バースデーきっぷ」（誕生月±1か月限定）なら特急乗り放題3日間9,500円〜</li>
+      <li>道後温泉本館は改修中のため「飛鳥乃湯泉」「椿の湯」でも同じ泉質が楽しめる</li>
+      <li>市内電車1日乗車券（800円）でほぼ全観光地に移動できる</li>
+      <li>深夜・夜行バスは2人で4列シートより3列独立席を選ぶと疲れが全然違う</li>
+    </ul>
+  </div>
+
+</div><!-- /panel-0 -->
+
+
+<!-- ════════════════ 2泊3日 ════════════════ -->
+<div class="panel" id="panel-1">
+
+  <div class="dest-header" data-kanji="別府">
+    <div class="dest-num">02</div>
+    <div class="dest-info">
+      <p class="location">📍 大分県 別府市 ＋ 由布市</p>
+      <h2>別府温泉 × 由布院</h2>
+      <p>世界有数の湧出量を誇る別府と、おしゃれなリゾート温泉地・由布院をセット攻略。「地獄めぐり」「砂湯」など個性的な体験が満載。電車・バスだけで楽に移動できる。</p>
+      <div class="badges">
+        <span class="badge badge-green">♨ 源泉数 日本一</span>
+        <span class="badge badge-blue">🚃 JR日豊本線OK</span>
+        <span class="badge badge-orange">🌋 地獄めぐり</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="access-bar">
+    <strong>アクセス例</strong>
+    <span class="access-dot"></span>
+    東京発: 新幹線（博多）→ ソニック号 → 別府 約6h
+    <span class="access-dot"></span>
+    大阪発: 新幹線（博多）→ ソニック号 → 別府 約3.5h
+    <span class="access-dot"></span>
+    <strong>節約: LCC（福岡空港）→ 高速バス → 別府 約2h</strong>
+  </div>
+
+  <p class="section-title">スケジュール</p>
+
+  <div class="day-block">
+    <div class="day-label">DAY 1 ／ 別府着・温泉三昧</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">AM</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 移動・別府到着</div>
+          <div class="tl-desc">LCCなら早朝便で福岡着→高速バスで別府へ。新幹線なら博多経由で。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🍖 別府でランチ</div>
+          <div class="tl-desc">とり天・関アジ・地鶏炭火焼など大分グルメ。竹瓦温泉近くの食堂が安くてうまい。</div>
+          <div class="tl-cost">目安: 800〜1,500円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">14:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🌋 別府地獄めぐり</div>
+          <div class="tl-desc">「海地獄（コバルトブルー）」「血の池地獄（赤）」など8つの地獄を見学。ここだけの異世界感。</div>
+          <div class="tl-cost">共通観覧券: 2,200円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">16:30</div>
+        <div class="tl-content">
+          <div class="tl-title">⛱ 別府 砂湯体験（鉄輪）</div>
+          <div class="tl-desc">砂の中に埋まる「砂蒸し風呂」は別府でしかできない体験。温泉効果が高くて気持ちいい。</div>
+          <div class="tl-cost">1,500円/人（浴衣レンタル込）</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🏨 宿チェックイン</div>
+          <div class="tl-desc">別府市内のゲストハウスorビジネス旅館に投宿。温泉付きがベスト。</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">20:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 竹瓦温泉（共同湯）</div>
+          <div class="tl-desc">大正時代の建物が残る絵になる外観。地元民に混じって入る共同浴場は100円台〜。</div>
+          <div class="tl-cost">300円/人（普通浴）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 2 ／ 由布院へ移動・散策</div>
+    <div class="timeline">
+      <div class="tl-item highlight">
+        <div class="tl-time">07:30</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 朝風呂（宿の温泉）</div>
+          <div class="tl-desc">誰もいない朝の温泉は最高のリフレッシュ。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🚌 由布院へバス移動</div>
+          <div class="tl-desc">亀の井バス「ゆふりん」で別府→由布院 約50分。車窓から由布岳の絶景。</div>
+          <div class="tl-cost">約1,130円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🚶 由布院駅前〜金鱗湖 散策</div>
+          <div class="tl-desc">湯の坪街道でオサレな雑貨・スイーツ巡り。ロールケーキ・プリンが有名。</div>
+          <div class="tl-cost">スイーツ代: 1,000〜1,500円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">12:30</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 由布院の温泉（日帰り入浴）</div>
+          <div class="tl-desc">「山のホテル夢想園」「由布院玉の湯」など絶景露天風呂への日帰り入浴も可能。</div>
+          <div class="tl-cost">600〜1,500円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🍱 由布院でランチ</div>
+          <div class="tl-desc">由布院牛串・豆腐料理・コスパいい定食屋など。</div>
+          <div class="tl-cost">目安: 1,000〜2,000円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🔙 別府へ戻る</div>
+          <div class="tl-desc">バスかJRで別府に戻りチェックイン（2泊目）。</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">19:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🍺 別府 夜の温泉街</div>
+          <div class="tl-desc">屋台横丁・居酒屋で大分グルメ。別府冷麺もおすすめ。</div>
+          <div class="tl-cost">2,500〜4,000円/人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 3 ／ 帰路</div>
+    <div class="timeline">
+      <div class="tl-item highlight">
+        <div class="tl-time">07:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 最後の朝風呂</div>
+          <div class="tl-desc">帰る前にもう一発。別府の湯は最後まで惜しまず。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🛍 お土産購入・チェックアウト</div>
+          <div class="tl-desc">地獄プリン・ざぼん漬け・かぼすジュースなどお土産を購入。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 帰路へ出発</div>
+          <div class="tl-desc">ソニック号で博多→新幹線 or フェリー（別府→大阪 さんふらわあ）で帰宅。</div>
+          <div class="tl-cost">フェリー利用なら大阪まで11,390円〜/人（寝ながら帰れる！）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cost-section">
+    <p class="section-title">費用概算（２人合計）</p>
+    <table>
+      <tr><th>項目</th><th>節約プラン</th><th class="td-yen">スタンダード</th></tr>
+      <tr>
+        <td>✈ 交通費（往復）<br><span style="font-size:11px;color:#888">※大阪発 LCC利用</span></td>
+        <td>LCC 約20,000〜30,000円（2人）</td>
+        <td class="td-yen">新幹線 約45,000〜60,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🏨 宿泊（2泊・2人1室）</td>
+        <td>6,000〜9,000円/人/泊</td>
+        <td class="td-yen">12,000〜20,000円/人/泊</td>
+      </tr>
+      <tr>
+        <td>🌋 地獄めぐり（共通券）</td>
+        <td colspan="2" class="td-yen">4,400円（2人）</td>
+      </tr>
+      <tr>
+        <td>⛱ 砂蒸し風呂</td>
+        <td colspan="2" class="td-yen">3,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>♨ 各種入湯料</td>
+        <td colspan="2" class="td-yen">約2,000〜4,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🍜 食費（3日分）</td>
+        <td>8,000〜12,000円（2人）</td>
+        <td class="td-yen">15,000〜22,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🚌 現地交通費（バス等）</td>
+        <td colspan="2" class="td-yen">約3,000〜5,000円（2人）</td>
+      </tr>
+      <tr class="total-row">
+        <td>💴 合計目安（2人）</td>
+        <td>節約: <strong>約55,000〜70,000円</strong></td>
+        <td class="td-yen">普通: 約100,000〜130,000円</td>
+      </tr>
+      <tr class="note-row">
+        <td colspan="3">※1人あたり：節約 27,000〜35,000円 ／ スタンダード 50,000〜65,000円　※帰りに「さんふらわあ」フェリーを使うと移動費＋宿泊費が一緒になって超節約になる</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tips-box">
+    <h4>💡 節約 &amp; 攻略 Tips</h4>
+    <ul>
+      <li>「大分空港〜別府」はホーバークラフトが2023年復活！片道3,000円で海上移動が楽しい</li>
+      <li>別府の「100円温泉」と呼ばれる激安共同浴場が30か所以上あり、はしご湯が最高</li>
+      <li>さんふらわあ（別府〜大阪フェリー）の「ツーリスト相部屋」は約6,000円で寝ながら帰宅できる</li>
+      <li>由布院は平日がおすすめ。週末は観光客が多くてカップル率が高め（男旅的に注意）</li>
+      <li>別府市の共同浴場「山の手 市営温泉」は100円〜。地元民に紛れてガチの温泉を体験できる</li>
+    </ul>
+  </div>
+
+</div><!-- /panel-1 -->
+
+
+<!-- ════════════════ 3泊4日 ════════════════ -->
+<div class="panel" id="panel-2">
+
+  <div class="dest-header" data-kanji="北海道">
+    <div class="dest-num">03</div>
+    <div class="dest-info">
+      <p class="location">📍 北海道 登別市 ＋ 洞爺湖町</p>
+      <h2>登別温泉 × 洞爺湖</h2>
+      <p>北海道の大自然の中にある最高峰の温泉地コンビ。強烈な硫黄泉の「地獄谷」と日本最大級のカルデラ湖「洞爺湖」を制覇する、男旅史上最高の4日間。LCCを使えば意外とリーズナブル。</p>
+      <div class="badges">
+        <span class="badge badge-green">🐻 大自然</span>
+        <span class="badge badge-blue">✈ LCC利用可</span>
+        <span class="badge badge-orange">🌋 地獄谷</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="access-bar">
+    <strong>アクセス例</strong>
+    <span class="access-dot"></span>
+    LCC（Peach/Jetstar）→ 新千歳空港 → 特急 or バス → 登別 約50分
+    <span class="access-dot"></span>
+    北海道新幹線（東京→函館北斗）→ 特急 → 登別 約5h
+    <span class="access-dot"></span>
+    <strong>登別〜洞爺湖 はバスで約50分・1,000円前後</strong>
+  </div>
+
+  <p class="section-title">スケジュール</p>
+
+  <div class="day-block">
+    <div class="day-label">DAY 1 ／ 北海道上陸・登別へ</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">AM</div>
+        <div class="tl-content">
+          <div class="tl-title">✈ 新千歳空港着</div>
+          <div class="tl-desc">LCC早朝便で北海道入り。空港ラーメン道場でランチ（味噌ラーメン最高）。</div>
+          <div class="tl-cost">空港ラーメン: 1,000〜1,300円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 特急で登別へ</div>
+          <div class="tl-desc">特急北斗・すずらん 約45分。登別駅からバスで温泉街へ。</div>
+          <div class="tl-cost">約1,800円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">14:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🌋 地獄谷散策</div>
+          <div class="tl-desc">硫黄の匂いが立ち込める登別の象徴。噴気孔と煮えたぎる温泉池が壮大。大正地獄も必見。無料で見学可。</div>
+          <div class="tl-cost">無料</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🐻 のぼりべつクマ牧場</div>
+          <div class="tl-desc">ロープウェイで山頂へ。クマと目が合う至近距離体験。男旅で絶対笑える。</div>
+          <div class="tl-cost">2,650円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">17:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🏨 宿チェックイン</div>
+          <div class="tl-desc">登別温泉街の旅館or宿に投宿。温泉付きが必須。</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">19:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 登別温泉（大浴場・露天）</div>
+          <div class="tl-desc">硫黄泉・食塩泉・鉄泉など複数の泉質を1か所で楽しめる旅館が多い。かけ流しで最高の湯質。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 2 ／ 登別をディープに楽しむ</div>
+    <div class="timeline">
+      <div class="tl-item highlight">
+        <div class="tl-time">06:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 朝の地獄谷 ＋ 朝風呂</div>
+          <div class="tl-desc">観光客が来る前の静寂な地獄谷へ。朝もやの中の地獄谷は幻想的。朝風呂も忘れず。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🌊 カルルス温泉（奥の湯）</div>
+          <div class="tl-desc">登別郊外の秘湯。泉質が違う温泉をはしご。タクシーor徒歩30分。</div>
+          <div class="tl-cost">500〜700円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🦀 ランチ（ジンギスカン or 海鮮）</div>
+          <div class="tl-desc">北海道グルメの王道。登別近くのジンギスカン食べ放題 or 白老の海鮮丼。</div>
+          <div class="tl-cost">1,500〜3,000円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🏛 登別伊達時代村（オプション）</div>
+          <div class="tl-desc">江戸時代テーマパーク。忍者ショーや侍体験。男子ノリで全力楽しめる。</div>
+          <div class="tl-cost">2,900円/人</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">21:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 間欠泉ショー ＋ 夜の地獄谷</div>
+          <div class="tl-desc">3時間ごとに噴出する間欠泉（無料）。ライトアップされた夜の地獄谷は唯一無二。</div>
+          <div class="tl-cost">無料</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 3 ／ 洞爺湖へ移動・絶景堪能</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚌 道南バスで洞爺湖へ</div>
+          <div class="tl-desc">登別温泉→洞爺湖温泉 約55分。車窓から羊蹄山が見える。</div>
+          <div class="tl-cost">約1,000円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🚢 洞爺湖遊覧船</div>
+          <div class="tl-desc">湖上から見る羊蹄山と昭和新山の絶景。中島に上陸してエゾシカに会える。</div>
+          <div class="tl-cost">1,650円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🌋 昭和新山・有珠山ロープウェイ</div>
+          <div class="tl-desc">1943年突然生まれた山・昭和新山。ロープウェイ山頂から噴火湾・洞爺湖の大パノラマ。</div>
+          <div class="tl-cost">ロープウェイ: 2,200円/人</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🏨 洞爺湖温泉チェックイン</div>
+          <div class="tl-desc">湖畔の宿で洞爺湖を眺める温泉へ。この日は早めにゆっくり。</div>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-time">20:45</div>
+        <div class="tl-content">
+          <div class="tl-title">🎆 洞爺湖長期花火大会</div>
+          <div class="tl-desc">4月下旬〜10月下旬の毎晩20:45から約20分間の花火。湖面に映る花火が圧巻。無料。</div>
+          <div class="tl-cost">無料（4月下旬〜10月下旬 毎日開催）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">DAY 4 ／ 帰路</div>
+    <div class="timeline">
+      <div class="tl-item highlight">
+        <div class="tl-time">07:00</div>
+        <div class="tl-content">
+          <div class="tl-title">♨ 最後の朝風呂（湖畔露天）</div>
+          <div class="tl-desc">洞爺湖を眺めながらの露天風呂。これが旅のクライマックス。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title">🛍 洞爺湖土産 ＋ チェックアウト</div>
+          <div class="tl-desc">洞爺湖カルビーポテトファームや地元スイーツを購入。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title">🚆 帰路へ</div>
+          <div class="tl-desc">洞爺駅→特急→新千歳空港 約1.5h。LCCで帰宅。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cost-section">
+    <p class="section-title">費用概算（２人合計）</p>
+    <table>
+      <tr><th>項目</th><th>節約プラン</th><th class="td-yen">スタンダード</th></tr>
+      <tr>
+        <td>✈ 交通費（往復）<br><span style="font-size:11px;color:#888">LCC利用 / 東京〜大阪発</span></td>
+        <td>LCC 約20,000〜36,000円（2人）</td>
+        <td class="td-yen">新幹線 約70,000〜90,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🏨 宿泊（3泊・2人1室）<br><span style="font-size:11px;color:#888">登別2泊 + 洞爺湖1泊</span></td>
+        <td>7,000〜10,000円/人/泊</td>
+        <td class="td-yen">15,000〜25,000円/人/泊</td>
+      </tr>
+      <tr>
+        <td>🐻 クマ牧場</td>
+        <td colspan="2" class="td-yen">5,300円（2人）</td>
+      </tr>
+      <tr>
+        <td>🚢 遊覧船・ロープウェイ等</td>
+        <td colspan="2" class="td-yen">約7,700〜8,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🍜 食費（4日分）</td>
+        <td>12,000〜16,000円（2人）</td>
+        <td class="td-yen">20,000〜30,000円（2人）</td>
+      </tr>
+      <tr>
+        <td>🚌 現地交通費</td>
+        <td colspan="2" class="td-yen">約4,000〜6,000円（2人）</td>
+      </tr>
+      <tr class="total-row">
+        <td>💴 合計目安（2人）</td>
+        <td>節約: <strong>約80,000〜100,000円</strong></td>
+        <td class="td-yen">普通: 約160,000〜200,000円</td>
+      </tr>
+      <tr class="note-row">
+        <td colspan="3">※1人あたり：節約 40,000〜50,000円 ／ スタンダード 80,000〜100,000円　※LCCの早割（60日前〜）を使えば往復1人あたり10,000円台も可能</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tips-box">
+    <h4>💡 節約 &amp; 攻略 Tips</h4>
+    <ul>
+      <li>LCCは60日前の予約でかなり安くなる。PeachやJetstarの早割をこまめにチェック</li>
+      <li>北海道は「北海道ネット早トクきっぷ」でJR特急が割引になる（スマホのみ）</li>
+      <li>洞爺湖の花火は4/28〜10/31の毎晩20:45開催。宿のチェックイン前に確認しておく</li>
+      <li>登別の「第一滝本館」は湯質が最高。日帰り入浴（1,500円）でも貸切感ある大浴場を使える</li>
+      <li>クマ牧場+伊達時代村+遊覧船など複数施設の「セット割」がある。現地窓口で確認</li>
+      <li>北海道は飯が安くてうまい。コンビニのおにぎり・弁当でさえ本土より段違いのクオリティ</li>
+    </ul>
+  </div>
+
+</div><!-- /panel-2 -->
+
+</div><!-- /container -->
+
+<footer>
+  ♨ 温泉旅プランガイド — 2人旅 / 関東・関西・沖縄 除く ♨<br>
+  <span style="opacity:0.6;">価格は目安です。季節・宿・出発地により変動します。</span>
+</footer>
+
+<script>
+  function switchTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.panel').forEach((panel, i) => {
+      panel.classList.toggle('active', i === index);
+    });
+    // scroll to top of container smoothly
+    document.querySelector('.tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+</body>
+</html>
